@@ -1,1 +1,2 @@
-# CIS410-GP-cubekiller-3D
+# CIS410-CubeKiller
+CIS 410 game programming 
