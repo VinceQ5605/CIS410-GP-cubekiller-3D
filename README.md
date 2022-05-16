@@ -1,1 +1,1 @@
-# CIS410-GP-cubekiller-3D-templete
+# CIS410-GP-cubekiller-3D
