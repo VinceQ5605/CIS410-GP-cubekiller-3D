@@ -40,14 +40,14 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = transform.right * x + transform.forward * z;
         move.Normalize();
-        if (Input.GetAxis("Sprint") == 1f)
+        /*if (Input.GetAxis("Sprint") == 1f)
         {
             controller.Move(move * sprintSpeed * Time.deltaTime);
         }
         else
         {
             controller.Move(move * speed * Time.deltaTime);
-        }
+        }*/
 
 
         velocity.y += gravity * Time.deltaTime;

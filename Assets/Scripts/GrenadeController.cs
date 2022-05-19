@@ -26,7 +26,7 @@ public class GrenadeController : MonoBehaviour
     /// colors: {black, red, gold, green, blue}
     public void SetValues(int color, float mass, float radius, float intensity)
     {
-        GetComponent<MeshRenderer>().material = grenadeMaterials[color]; // sets the grenade to the correct color
+        //GetComponent<MeshRenderer>().material = grenadeMaterials[color]; // sets the grenade to the correct color
         GetComponent<Rigidbody>().mass = mass;
         explosionRadius = radius;
         explosionIntensity = intensity;
