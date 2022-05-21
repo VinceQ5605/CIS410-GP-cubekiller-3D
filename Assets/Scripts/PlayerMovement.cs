@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,14 +28,15 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        isGrounded = true;
+        //isGrounded = true;
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = 0.0f;
         }
-        if (Input.GetKeyDown("space") && controller.isGrounded)
+        if (Input.GetKey("space") && controller.isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity);
+            Debug.Log("space pressed");
         }
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -50,9 +52,9 @@ public class PlayerMovement : MonoBehaviour
             controller.Move(move * speed * Time.deltaTime);
         }
 
-
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
     }
 
 }
