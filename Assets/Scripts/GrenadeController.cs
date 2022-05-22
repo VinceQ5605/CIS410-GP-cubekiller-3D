@@ -78,7 +78,7 @@ public class GrenadeController : MonoBehaviour
         {
             GetComponent<Rigidbody>().mass = 2.5f;
             explosionRadius = 2 * explosionRadius;
-            return .7f * defaultSpeed;
+            return 14f * defaultSpeed;
         }
         else if (color == 4) // Purple (creates a gravity well sucking the enemies and player in, stronger near center)
         {
