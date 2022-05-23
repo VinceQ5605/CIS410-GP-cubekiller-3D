@@ -36,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKey("space") && controller.isGrounded)
         {
             velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity);
-            Debug.Log("space pressed");
+            //Debug.Log("space pressed");
         }
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
