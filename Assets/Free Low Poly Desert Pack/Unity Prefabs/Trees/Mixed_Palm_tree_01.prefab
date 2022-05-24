@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 433264}
   - component: {fileID: 3322384}
   - component: {fileID: 2340500}
+  - component: {fileID: -7070025008954099973}
+  - component: {fileID: 3179478882954817049}
   m_Layer: 0
   m_Name: Mixed_Palm_tree_01
   m_TagString: Untagged
@@ -83,3 +85,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &-7070025008954099973
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 8f34c244e0da945439f043bd7d958ecf, type: 3}
+--- !u!136 &3179478882954817049
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2.7138705
+  m_Height: 7.3967075
+  m_Direction: 1
+  m_Center: {x: -1.6204242, y: 3.7292614, z: 0.875122}
