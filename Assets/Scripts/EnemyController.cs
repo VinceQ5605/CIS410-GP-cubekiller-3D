@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     [Range(0f, 1f)]
     public float directionChangeProbability;
     public float maxHealth = 300f;
+    //public int baseHealth = 10;
 
     private GameObject baseObject;
     private bool isBusy = false; // is this enemy busy doing a coroutine?
@@ -191,6 +192,18 @@ public class EnemyController : MonoBehaviour
         StartCoroutine(DelayedDash(jumpDirection, .6f)); // dash in the direction determined in JumpDirection
         StartCoroutine(Wait(jumpCoolDown + Random.Range(0f, .3f)));
     }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (baseHealth >0)
+    //    {
+    //        baseHealth--;
+    //    } else
+    //    {
+    //        Application.Quit();
+    //    }
+    //    this.gameObject.SetActive(false);
+    //}
 
 
     public void Hit(Vector3 direction, float damage)
