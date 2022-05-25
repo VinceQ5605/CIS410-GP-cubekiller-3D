@@ -11,4 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: dd93f814cfc554c45bd1cb4f081d60fa
+  - enabled: 1
+    path: Assets/Scenes/DesertWorld.unity
+    guid: 5ca9c51798676412ca98dde1bcc9f6bf
+  - enabled: 1
+    path: Assets/Scenes/SnowWorld.unity
+    guid: 3d61a2cf688264216922224a9ec2d788
   m_configObjects: {}
