@@ -39,7 +39,7 @@ public class EnemyController : MonoBehaviour
         baseLocation = baseObject.transform.position;
         positionBeforePreviousJump = Vector3.zero;
         jumpableTags = new string[] { "Ground",  "Barrier"};
-        JumpDirection(baseLocation - transform.position);
+        //JumpDirection(baseLocation - transform.position);
         //StartCoroutine(Wait(Random.Range(.2f,3f))); // delay for a random amount of time
         onTopOfTheseObjects = new List<GameObject>();
         rigidbody.freezeRotation = true; // this should not be necessary
