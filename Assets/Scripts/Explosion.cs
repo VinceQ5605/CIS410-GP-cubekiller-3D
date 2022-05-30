@@ -12,6 +12,10 @@ public class Explosion : MonoBehaviour
     private bool isMiniFire;
     private bool isGravityWell;
 
+    public AudioSource explosionLeftClick;
+    public AudioSource explosionRightClick;
+
+
     public void SetValues(float radius, float intensity, float damage, GameObject grenade, bool isMiniFire)
     {
         explosionRadius = radius;
@@ -33,6 +37,7 @@ public class Explosion : MonoBehaviour
 
     public void Explode()
     {
+        
         if (isFieryGround)
         {
             // spawn mini fiery grenades in 6 directions
@@ -49,14 +54,17 @@ public class Explosion : MonoBehaviour
                 }
             }
             StartCoroutine(FieryGround());
+            
         }
         else if (isGravityWell)
         {
             StartCoroutine(GravityWell());
+            
         }
         else
         {
             StartCoroutine(ExplosionVisual());
+            
         }
 
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, explosionRadius);
@@ -108,5 +116,19 @@ public class Explosion : MonoBehaviour
         }
         grenade.SetActive(false);
         this.gameObject.SetActive(false);
+        ExplosionAudioPlay();
     }
+
+    public void ExplosionAudioPlay()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            explosionLeftClick.Play();
+        }
+        if (Input.GetMouseButtonDown(1))
+        {
+            explosionRightClick.Play();
+        }
+    }
+
 }
