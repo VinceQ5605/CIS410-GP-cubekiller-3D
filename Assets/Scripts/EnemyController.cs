@@ -4,19 +4,20 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float jumpCoolDown; // time after jumping until the next jump is available
-    public float height;
-    public float jumpDistance;
+    public float jumpCoolDown = 1f; // time after jumping until the next jump is available
+    public float height = 2f;
+    public float jumpDistance = 10f;
     [Range(0, 30)]
-    public float groupingDistance;
+    public float groupingDistance = 5f;
     [Range(0, 30)]
-    public float rotationSpeed;
+    public float rotationSpeed = 20f;
     [Range(0, 30)]
     public float freezeRotationTime = 1f;
     [Range(0f, 1f)]
-    public float directionChangeProbability;
+    public float directionChangeProbability = .5f;
     public float maxHealth = 300f;
-    //public int baseHealth = 10;
+    public bool atDestination = false;
+    public bool stopMoving;
 
     private bool isBusy = false; // is this enemy busy doing a coroutine?
     private bool oriented = false; // the cube is rotated to align with the grid
@@ -29,9 +30,10 @@ public class EnemyController : MonoBehaviour
     private new Transform transform;
     private List<GameObject> onTopOfTheseObjects;
     private float currentHealth;
+    private BoximonEnemyController boximon;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         transform = GetComponent<Transform>();
@@ -43,9 +45,32 @@ public class EnemyController : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    private void Start()
+    {
+        boximon = GetComponent<BoximonEnemyController>();
+    }
+
     public void SetDestination(GameObject destinationObject)
     {
         destination = destinationObject.transform.position;
+    }
+
+    public void HasItArrived()
+    {
+        float closenessRequired = 1f; // closeness is the square of the horizontal distance
+        if (boximon != null)
+        {
+            closenessRequired = 100f; // don't need to be as close if transformed and going for the base
+        }
+        Vector3 positionDelta = destination - transform.position;
+        if (positionDelta.x * positionDelta.x + positionDelta.z * positionDelta.z < closenessRequired)
+        {
+            atDestination = true;
+        }
+        else
+        {
+            atDestination = false;
+        }
     }
 
 
@@ -59,6 +84,10 @@ public class EnemyController : MonoBehaviour
                 if (!onTopOfTheseObjects.Contains(other))
                 {
                     onTopOfTheseObjects.Add(other);
+                    /*if (boximon != null)
+                    {
+                        boximon.Fire();
+                    }*/
                 }
             }
         }
@@ -69,7 +98,7 @@ public class EnemyController : MonoBehaviour
         onTopOfTheseObjects.Remove(collision.gameObject);
     }
 
-    bool GroundedTest()
+    public bool GroundedTest()
     // returns true if this cube is on the ground/barrier. If on top of another cube, checks if that cube is grounded.
     {
         foreach (GameObject obj in onTopOfTheseObjects)
@@ -154,8 +183,9 @@ public class EnemyController : MonoBehaviour
     void FixedUpdate()
     // Update is called once per frame
     {
+        HasItArrived();
         // if busy doing one of the coroutines, skip this FixedUpdate
-        if (isBusy)
+        if (isBusy || stopMoving)
         {
             return;
         }
@@ -168,11 +198,11 @@ public class EnemyController : MonoBehaviour
         }
 
 
-        if (!oriented) // note: oriented may be false even if already aligned to the grid. This is not a problem.
+        /*if (!oriented) // note: oriented may be false even if already aligned to the grid. This is not a problem.
         {
             StartCoroutine(Orient(1));
             return;
-        }
+        }*/
 
 
         // if something is directly above, wait
