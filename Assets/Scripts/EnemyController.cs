@@ -18,10 +18,9 @@ public class EnemyController : MonoBehaviour
     public float maxHealth = 300f;
     //public int baseHealth = 10;
 
-    private GameObject baseObject;
     private bool isBusy = false; // is this enemy busy doing a coroutine?
     private bool oriented = false; // the cube is rotated to align with the grid
-    private Vector3 baseLocation;  //! change to base.transform.position once we have a base object
+    private Vector3 destination;  //! change to base.transform.position once we have a base object
     private Vector3 previousPosition;
     private Vector3 positionBeforePreviousJump; // Test position against the position before the previous jump. If too close, increase probability to randomize jumpdirection.
     private int numberOfJumpsWithoutMovingMuch = 0; // to determine how likely it is to randomize jump direction.
@@ -36,19 +35,17 @@ public class EnemyController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         transform = GetComponent<Transform>();
-        baseLocation = baseObject.transform.position;
         positionBeforePreviousJump = Vector3.zero;
-        jumpableTags = new string[] { "Ground",  "Barrier"};
-        JumpDirection(baseLocation - transform.position);
+        jumpableTags = new string[] {"Ground", "Barrier"};
         //StartCoroutine(Wait(Random.Range(.2f,3f))); // delay for a random amount of time
         onTopOfTheseObjects = new List<GameObject>();
         rigidbody.freezeRotation = true; // this should not be necessary
         currentHealth = maxHealth;
     }
 
-    public void SetBase(GameObject baseObject)
+    public void SetDestination(GameObject destinationObject)
     {
-        this.baseObject = baseObject;
+        destination = destinationObject.transform.position;
     }
 
 
@@ -185,7 +182,7 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
-        Vector3 jumpDirection = JumpDirection(baseLocation - transform.position); // randomizes the direction in which to jump
+        Vector3 jumpDirection = JumpDirection(destination - transform.position); // randomizes the direction in which to jump
 
         // do the jump!
         rigidbody.AddForce(200 * height * Vector3.up); // jump straight up
