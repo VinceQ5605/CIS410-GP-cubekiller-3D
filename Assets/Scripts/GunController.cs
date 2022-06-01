@@ -16,11 +16,17 @@ public class GunController : MonoBehaviour
     public float firePower;
     public int selected;
     public int defaultDamage = 100;
-    
+    public AudioSource shootingAudio;
+    public AudioSource shootingAudio2;
+
+    bool m_HasAudioPlayed;
+    bool m_HasAudioPlayed2;
 
     void Start()
     {
         selected = 0;
+        //m_HasAudioPlayed = false;
+        //m_HasAudioPlayed2 = false;
     }
 
     // Update is called once per frame
@@ -28,11 +34,16 @@ public class GunController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            
             FireGrenadeBasic();
+            shootingAudio.Play();
+            //m_HasAudioPlayed = true;
         }
         if (Input.GetMouseButtonDown(1))
         {
             FireGrenadeSpecial();
+            shootingAudio2.Play();
+            //m_HasAudioPlayed2 = true;
         }
     }
 
