@@ -9,6 +9,9 @@ TagManager:
   - Ground
   - Barrier
   - Base
+  - effect
+  - Fire
+  - Coin
   layers:
   - Default
   - TransparentFX

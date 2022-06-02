@@ -6,16 +6,20 @@ using TMPro;
 using UnityEngine.SceneManagement;
 
 
-public class BaseHealth : MonoBehaviour
+public class GeneralManager : MonoBehaviour
 {
     public TextMeshProUGUI base_Health;
     public GameObject winTextObject;
     public GameObject lostTextObject;
+    public TextMeshProUGUI coinCounter;
+
+    public TextMeshProUGUI enemy_Counter;
 
 
     private int count;
     private int baseHealth;
     private int enemyLeft;
+    private int coin;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +27,11 @@ public class BaseHealth : MonoBehaviour
         SetBaseHealth();
         winTextObject.SetActive(false);
         lostTextObject.SetActive(false);
+        coin = 0;
+        SetCoinCounter();
 
         enemyLeft = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        SetEnemyCount();
     }
 
     // Update is called once per frame
@@ -46,6 +53,11 @@ public class BaseHealth : MonoBehaviour
         }
     }
 
+    void SetCoinCounter()
+    {
+        coinCounter.text = coin.ToString();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
@@ -62,6 +74,18 @@ public class BaseHealth : MonoBehaviour
             }
             other.gameObject.SetActive(false);
         }
-        
+
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            coin++;
+            SetCoinCounter();
+            other.gameObject.SetActive(false);
+        }
+
+    }
+
+    void SetEnemyCount()
+    {
+        enemy_Counter.text = "Enemies: " + enemyLeft.ToString();
     }
 }
