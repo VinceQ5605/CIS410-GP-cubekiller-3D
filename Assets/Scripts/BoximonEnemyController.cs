@@ -8,11 +8,12 @@ public class BoximonEnemyController : MonoBehaviour
     public float fireCoolDown;
     public float range; // how close a target needs to be to trigger an attack (square of the horizontal distance)
     public GameObject player;
+    [Range(1, 2)]
+    public int enemyType;
 
     private EnemyController enemyController;
     private Animator animator;
     private float fireCDRemaining;
-    private int enemyType;
 
     void Start()
     {
@@ -80,7 +81,7 @@ public class BoximonEnemyController : MonoBehaviour
             //enemyController.stopMoving = true;
         }
         Vector3 target = SomethingToFireAt();
-        if (fireCDRemaining < 0  &&  target != Vector3.zero)
+        if (fireCDRemaining < 0 && target != Vector3.zero)
         {
             fireCDRemaining = fireCoolDown;
             Fire1();
@@ -90,5 +91,22 @@ public class BoximonEnemyController : MonoBehaviour
     public void Fire1()
     {
         Debug.Log("Firing");
+        StartCoroutine(BladeSpin());
+    }
+
+    IEnumerator BladeSpin()
+    {
+        Transform model = transform.GetChild(0).transform;
+        GameObject blade = model.GetChild(0).gameObject;
+        blade.SetActive(true);
+        Quaternion initialRotation = model.transform.rotation;
+        float speed = 1500f;
+        for (float i = 0; i < 360; i += speed * Time.deltaTime)
+        {
+            model.Rotate(-1 * speed * Time.deltaTime * Vector3.up);
+            yield return null;
+        }
+        model.transform.rotation = initialRotation;
+        blade.SetActive(false);
     }
 }

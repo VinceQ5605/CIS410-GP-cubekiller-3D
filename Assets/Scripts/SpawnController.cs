@@ -21,7 +21,7 @@ public class SpawnController : MonoBehaviour
         StartCoroutine(Spawner360(transform.position, numberOfEnemies)); // set this EnemySpawner in the right location before calling Spawn
     }
 
-    IEnumerator Spawner360(Vector3 position, int numberOfEnemies)
+    private IEnumerator Spawner360(Vector3 position, int numberOfEnemies)
     {
         GameObject[] enemyList = new GameObject[numberOfEnemies];
 

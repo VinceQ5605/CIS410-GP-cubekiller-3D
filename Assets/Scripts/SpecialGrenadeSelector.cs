@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI; // to access images (for "filling" in the cd overlay)
 using System.Linq;
 
 public class SpecialGrenadeSelector : MonoBehaviour
@@ -11,11 +12,13 @@ public class SpecialGrenadeSelector : MonoBehaviour
 
     private GunController gunController;
     private List<int> grenadesAvailable; // grenadesAvailable[i] = 4 means that the 5th grenade type is in position i (and will be selected by pressing the #(i+1) key)
+    private List<Image> cdImage;
 
     private void Start()
     {
         gunController = gun.GetComponent<GunController>();
-        grenadesAvailable = new List<int>(grenadeIcons.Count+1);
+        grenadesAvailable = new List<int>(grenadeIcons.Count + 1);
+        cdImage = new List<Image>(grenadeIcons.Count + 1);
         //grenadesAvailable.Add(0); // ignore the first element of this list (so that it is indexed starting at 1, like the rest of this stuff)
         AddGrenade(0); // the rest are 0 (unavailable) at the start of the game for now
         AddGrenade(1);
@@ -33,6 +36,10 @@ public class SpecialGrenadeSelector : MonoBehaviour
                 Select(i);
                 break; // prefer the smaller number if two buttons are pressed at the same time
             }
+
+            // set the cooldown overlay image to be filled the right amount based off the remaining cooldown
+            //grenadeIcons[grenadesAvailable[i]].transform.GetChild(2)
+            cdImage[i].fillAmount = gunController.GetCD(grenadesAvailable[i]);
         }
     }
 
@@ -42,7 +49,8 @@ public class SpecialGrenadeSelector : MonoBehaviour
         GameObject icon = grenadeIcons[grenadesAvailable[grenadesAvailable.Count - 1]];
         icon.SetActive(true);
         icon.transform.localPosition = new Vector3(200f*(grenadesAvailable.Count - 1), 100f, 0f);
-        icon.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().text = grenadesAvailable.Count.ToString();
+        cdImage.Add(icon.transform.GetChild(2).gameObject.GetComponent<Image>());
+        icon.transform.GetChild(3).gameObject.GetComponent<TextMeshProUGUI>().text = grenadesAvailable.Count.ToString();
         if (grenadesAvailable.Count == 1)
         {
             Select(0);
