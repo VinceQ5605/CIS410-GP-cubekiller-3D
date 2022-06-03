@@ -9,12 +9,6 @@ public class FireballController : MonoBehaviour
     private BoximonEnemyController boximon;
     private bool isBlowingUp = false;
 
-    private void Update()
-    {
-
-        Debug.Log("fireball velocity: " + GetComponent<Rigidbody>().velocity.ToString());
-
-    }
 
     public void SetValues(GameObject baseObj, GameObject player, BoximonEnemyController boximon)
     {
@@ -47,7 +41,7 @@ public class FireballController : MonoBehaviour
 
     IEnumerator BlowUp()
     {
-        Debug.Log("Blowing Up!!!");
+        isBlowingUp = true;
         Vector3 scale = new Vector3(1f, 1f, 1f);
         for (int i = 0; i < 100; i++)
         {
