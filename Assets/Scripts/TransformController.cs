@@ -65,6 +65,7 @@ public class TransformController : MonoBehaviour
         newEnemyController.SetDestination(baseObj);
         newEnemyController.currentHealth = oldEnemyController.currentHealth;
         newEnemyController.coinPrefab = oldEnemyController.coinPrefab;
+        newEnemyController.SetBaseObject(baseObj);
         Destroy(oldEnemyController.gameObject);
     }
 }

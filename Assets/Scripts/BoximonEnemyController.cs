@@ -158,7 +158,6 @@ public class BoximonEnemyController : MonoBehaviour
     public void Fire2(Vector3 target)
     {
         target = target.normalized;
-        Debug.Log("Firing");
         GameObject fBall = Instantiate(fireball, transform.position + target + .5f * Vector3.up, Quaternion.LookRotation(target));
         FireballController fireballController = fBall.GetComponent<FireballController>();
         fireballController.SetValues(baseObj, player, this);

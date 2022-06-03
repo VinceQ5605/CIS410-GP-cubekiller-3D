@@ -16,11 +16,20 @@ public class WaveTimerController : MonoBehaviour
     private List<int> numberOfEnemies;
     private int spawnerIndex = 0;
     private int previousSpawnLocationIndex = -1;
+    private GeneralManager generalManager;
 
     private void Start()
     {
         timeUntilNextSpawner = new List<float> { 5f, 5f, 5f, 20f, 20f, 30f, 30f, 30f, 30f };
         numberOfEnemies = new List<int> { 40, 40, 40, 50, 50, 30, 30, 100, 200 };
+
+        int totalEnemyCount = 0;
+        for (int i = 0; i < numberOfEnemies.Count; i++)
+        {
+            totalEnemyCount += numberOfEnemies[i];
+        }
+        generalManager = baseObject.transform.GetChild(0).gameObject.GetComponent<GeneralManager>();
+        generalManager.SetTotalEnemyCount(totalEnemyCount);
     }
 
     void Update()

@@ -43,6 +43,7 @@ public class SpawnController : MonoBehaviour
             if (i%5 == 0)
                 enemyController.isCarryingCoin = true;
             enemyController.coinPrefab = coinPrefab;
+            enemyController.SetBaseObject(baseObject);
             enemyList[i] = newEnemy;
             newEnemy.GetComponent<Rigidbody>().velocity = speed * direction;
             direction = rotation * direction;

@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     public float currentHealth;
     public bool isCarryingCoin;
     public GameObject coinPrefab;
+    
 
     private bool isBusy = false; // is this enemy busy doing a coroutine?
     private bool oriented = false; // the cube is rotated to align with the grid
@@ -33,6 +34,7 @@ public class EnemyController : MonoBehaviour
     private new Transform transform;
     private List<GameObject> onTopOfTheseObjects;
     private BoximonEnemyController boximon;
+    private GameObject baseObject;
 
     // Start is called before the first frame update
     void Awake()
@@ -40,11 +42,13 @@ public class EnemyController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         transform = GetComponent<Transform>();
         positionBeforePreviousJump = Vector3.zero;
-        jumpableTags = new string[] {"Ground", "Barrier"};
+        jumpableTags = new string[] { "Ground", "Barrier" };
         //StartCoroutine(Wait(Random.Range(.2f,3f))); // delay for a random amount of time
         onTopOfTheseObjects = new List<GameObject>();
         rigidbody.freezeRotation = true; // this should not be necessary
         currentHealth = maxHealth;
+
+        
     }
 
     private void Start()
@@ -62,6 +66,11 @@ public class EnemyController : MonoBehaviour
     public void SetDestination(GameObject destinationObject)
     {
         destination = destinationObject.transform.position;
+    }
+
+    public void SetBaseObject(GameObject baseObject)
+    {
+        this.baseObject = baseObject;
     }
 
 
@@ -256,12 +265,13 @@ public class EnemyController : MonoBehaviour
     }
     public void Die()
     {
-        // to do: put in a particle effect for cube death
-        this.gameObject.SetActive(false);
+        // to do: put in a particle effect or animation for cube death
         if (isCarryingCoin)
         {
             Instantiate(coinPrefab,transform.position, Quaternion.identity);
         }
+        baseObject.transform.GetChild(0).gameObject.GetComponent<GeneralManager>().EnemyDeath();
+        Destroy(this.gameObject);
     }
 
     public void Disorient()

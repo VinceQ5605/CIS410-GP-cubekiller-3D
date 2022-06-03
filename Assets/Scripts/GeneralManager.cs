@@ -13,18 +13,16 @@ public class GeneralManager : MonoBehaviour
     public GameObject winTextObject;
     public GameObject lostTextObject;
     public TextMeshProUGUI coinCounter;
-
     public TextMeshProUGUI enemy_Counter;
-
-
-
 
     private int count;
     private int baseHealth;
     private int enemyLeft;
     private int coin;
     private int playerHealth;
-    // Start is called before the first frame update
+    private int totalEnemyCount;
+    private int remainingEnemyCount;
+
     void Start()
     {
         baseHealth = 100;
@@ -36,11 +34,10 @@ public class GeneralManager : MonoBehaviour
         coin = 0;
         SetCoinCounter();
 
-        enemyLeft = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        //enemyLeft = GameObject.FindGameObjectsWithTag("Enemy").Length;
         SetEnemyCount();
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -122,8 +119,22 @@ public class GeneralManager : MonoBehaviour
 
     //}
 
+    public void SetTotalEnemyCount(int totalEnemyCount)
+    {
+        this.totalEnemyCount = totalEnemyCount;
+        remainingEnemyCount = totalEnemyCount;
+        SetEnemyCount();
+}
+
+    public void EnemyDeath()
+    {
+        this.remainingEnemyCount--;
+        SetEnemyCount();
+    }
+
     void SetEnemyCount()
     {
-        enemy_Counter.text = "Enemies: " + enemyLeft.ToString();
+        // enemy_Counter.text = "Enemies: " + enemyLeft.ToString();
+        enemy_Counter.text = "Enemies: " + remainingEnemyCount.ToString();
     }
 }
