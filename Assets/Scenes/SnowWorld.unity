@@ -1009,6 +1009,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinText
       objectReference: {fileID: 0}
+    - target: {fileID: 3726628035043690646, guid: 6b2b6a899c1234b4dbb30ae2a0295fcb, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3726628035043690647, guid: 6b2b6a899c1234b4dbb30ae2a0295fcb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3148,6 +3152,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoseText
       objectReference: {fileID: 0}
+    - target: {fileID: 5141993477692701692, guid: f51d3e03fd54344cea4a0c002e00fa91, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5141993477692701693, guid: f51d3e03fd54344cea4a0c002e00fa91, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4256,6 +4264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbbcd7af244c8a246bd646fab62b4a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootingAudio: {fileID: 1388287228}
+  shootingAudio2: {fileID: 176596747}
   cam: {fileID: 1595866035798108116}
   grenade: {fileID: 1457100266944215494, guid: bcaa744ab83a0d64088110d13564d5ca, type: 3}
   shotPos: {fileID: 2273769730649258186}
@@ -4263,8 +4273,6 @@ MonoBehaviour:
   firePower: 30
   selected: 0
   defaultDamage: 100
-  shootingAudio: {fileID: 1388287228}
-  shootingAudio2: {fileID: 176596747}
 --- !u!1 &1041285322
 GameObject:
   m_ObjectHideFlags: 0
@@ -11126,8 +11134,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   base_Health: {fileID: 1988845496}
+  player_Health: {fileID: 0}
   winTextObject: {fileID: 46817272}
   lostTextObject: {fileID: 357942478}
+  coinCounter: {fileID: 0}
+  enemy_Counter: {fileID: 0}
 --- !u!1 &2113402662
 GameObject:
   m_ObjectHideFlags: 0

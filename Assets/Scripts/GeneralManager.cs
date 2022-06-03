@@ -68,56 +68,47 @@ public class GeneralManager : MonoBehaviour
 
     public void DamageBase()
     {
-        baseHealth--;
+        if (baseHealth > 0)
+        {
+            baseHealth--;
 
-        SetBaseHealth();
+            SetBaseHealth();
+        }
+        else
+        {
+            Application.Quit();
+        }
+        
     }
 
     public void DamagePlayer()
     {
-        playerHealth--;
+        if (playerHealth > 0)
+        {
+            playerHealth--;
 
-        SetPlayerHealth();
+            SetPlayerHealth();
+        }
+        else
+        {
+            Application.Quit();
+        }
+        
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("FireBall"))
-    //    {
-    //        if (baseHealth > 0)
-    //        {
-    //            baseHealth--;
+    private void OnTriggerEnter(Collider other)
+    {
+        
 
-    //            SetBaseHealth();
-    //        }
-    //        else
-    //        {
-    //            Application.Quit();
-    //        }
-    //        //other.gameObject.SetActive(false);
-    //    }
+        if (other.gameObject.CompareTag("Coin"))
+        {
+            coin++;
+            SetCoinCounter();
+            other.gameObject.SetActive(false);
+        }
 
-    //    if (other.gameObject.CompareTag("Coin"))
-    //    {
-    //        coin++;
-    //        SetCoinCounter();
-    //        other.gameObject.SetActive(false);
-    //    }
 
-    //    if (other.gameObject.CompareTag("FireBall"))
-    //    {
-    //        if (playerHealth > 0)
-    //        {
-    //            playerHealth--;
-    //            SetPlayerHealth();
-    //        }
-    //        else
-    //        {
-    //            Application.Quit();
-    //        }
-    //    }
-
-    //}
+    }
 
     public void SetTotalEnemyCount(int totalEnemyCount)
     {
