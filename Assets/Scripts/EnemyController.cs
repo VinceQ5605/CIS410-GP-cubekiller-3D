@@ -17,7 +17,10 @@ public class EnemyController : MonoBehaviour
     public float directionChangeProbability = .5f;
     public float maxHealth = 300f;
     public bool atDestination = false;
-    public bool stopMoving;
+    public bool stopMoving = false;
+    public float currentHealth;
+    public bool isCarryingCoin;
+    public GameObject coinPrefab;
 
     private bool isBusy = false; // is this enemy busy doing a coroutine?
     private bool oriented = false; // the cube is rotated to align with the grid
@@ -29,7 +32,6 @@ public class EnemyController : MonoBehaviour
     private new Rigidbody rigidbody;
     private new Transform transform;
     private List<GameObject> onTopOfTheseObjects;
-    private float currentHealth;
     private BoximonEnemyController boximon;
 
     // Start is called before the first frame update
@@ -50,10 +52,18 @@ public class EnemyController : MonoBehaviour
         boximon = GetComponent<BoximonEnemyController>();
     }
 
+    public bool IsBoximon()
+    {
+        if (boximon != null)
+            return true;
+        return false;
+    }
+
     public void SetDestination(GameObject destinationObject)
     {
         destination = destinationObject.transform.position;
     }
+
 
     public void HasItArrived()
     {
@@ -84,10 +94,13 @@ public class EnemyController : MonoBehaviour
                 if (!onTopOfTheseObjects.Contains(other))
                 {
                     onTopOfTheseObjects.Add(other);
-                    /*if (boximon != null)
+                    TransformController transformController = other.GetComponent<TransformController>();
+                    if (transformController != null && boximon == null)
                     {
-                        boximon.Fire();
-                    }*/
+                        Debug.Log("transforming!");
+                        transformController.Transformation(this);
+                        Destroy(this.gameObject);
+                    }
                 }
             }
         }
@@ -245,6 +258,10 @@ public class EnemyController : MonoBehaviour
     {
         // to do: put in a particle effect for cube death
         this.gameObject.SetActive(false);
+        if (isCarryingCoin)
+        {
+            Instantiate(coinPrefab,transform.position, Quaternion.identity);
+        }
     }
 
     public void Disorient()

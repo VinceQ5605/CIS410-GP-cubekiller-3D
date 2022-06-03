@@ -23,7 +23,7 @@ public class GunController : MonoBehaviour
     public int defaultDamage = 100;
 
     private float basicGrenadeCDRemaining;
-    private float basicGrenadeCD = 1.2f;
+    private float basicGrenadeCD = .7f;
     private float[] specialGrenadeCD;
     private float[] specialGrenadeCDRemaining;
 

@@ -1290,6 +1290,7 @@ MonoBehaviour:
   maxHealth: 300
   atDestination: 0
   stopMoving: 0
+  currentHealth: 0
 --- !u!114 &5500417752340279279
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1304,6 +1305,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseObj: {fileID: 0}
   fireCoolDown: 2
-  range: 100
+  range: 200
   player: {fileID: 0}
-  enemyType: 2
+  enemyType: 1
+  fireball: {fileID: 0}
+  fireballSpeed: 16

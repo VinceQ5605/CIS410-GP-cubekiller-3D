@@ -7,13 +7,19 @@ public class SpawnController : MonoBehaviour
     public float speed;
     public float rotationDelta;
     public float spawnTimeDelta;
-    public GameObject enemyPrefab;
-    public GameObject baseObject;
 
-    // Start is called before the first frame update
-    void Start()
+    private GameObject enemyPrefab;
+    private GameObject baseObject;
+    private List<GameObject> transformationLocations;
+    private GameObject coinPrefab;
+
+
+    public void SetValues(GameObject enemyPrefab, GameObject baseObject, List<GameObject> transformationLocations, GameObject coinPrefab)
     {
-        Spawn(50);
+        this.enemyPrefab = enemyPrefab;
+        this.baseObject = baseObject;
+        this.transformationLocations = transformationLocations;
+        this.coinPrefab = coinPrefab;
     }
 
     public void Spawn(int numberOfEnemies)
@@ -31,8 +37,12 @@ public class SpawnController : MonoBehaviour
         for (int i = 0; i < numberOfEnemies; i++)
         {
             GameObject newEnemy = Instantiate(enemyPrefab, position, Quaternion.identity);
-            newEnemy.GetComponent<EnemyController>().SetDestination(baseObject);
+            EnemyController enemyController = newEnemy.GetComponent<EnemyController>();
+            enemyController.SetDestination(transformationLocations[0]);
             newEnemy.SetActive(true);
+            if (i%5 == 0)
+                enemyController.isCarryingCoin = true;
+            enemyController.coinPrefab = coinPrefab;
             enemyList[i] = newEnemy;
             newEnemy.GetComponent<Rigidbody>().velocity = speed * direction;
             direction = rotation * direction;

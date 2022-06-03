@@ -7,9 +7,9 @@ public class GrenadeController : MonoBehaviour
     public PowerUps powerUps;
     public GameObject explosionPrefab;
     public List<Material> grenadeMaterials;
-    public float defaultSpeed = 10f;
+    public float defaultSpeed = 5f;
     public float defaultRadius = 3f;
-    public float defaultIntensity = 50f;
+    public float defaultIntensity = 100f;
     public float defaultLifeTime = 3f;
     public float defaultDamage = 100;
     public int defaultBouncesAvailable = 0;
