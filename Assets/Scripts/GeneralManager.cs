@@ -27,12 +27,12 @@ public class GeneralManager : MonoBehaviour
     {
         baseHealth = 100;
         playerHealth = 25;
-        SetBaseHealth();
-        SetPlayerHealth();
+        SetBaseHealth ();
+        SetPlayerHealth ();
         winTextObject.SetActive(false);
         lostTextObject.SetActive(false);
         coin = 0;
-        SetCoinCounter();
+        SetCoinCounter ();
 
         //enemyLeft = GameObject.FindGameObjectsWithTag("Enemy").Length;
         SetEnemyCount();
