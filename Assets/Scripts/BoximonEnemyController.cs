@@ -17,15 +17,22 @@ public class BoximonEnemyController : MonoBehaviour
     private Animator animator;
     private float fireCDRemaining;
 
-    private void Awake()
-    {
-    }
+    private GeneralManager generalManager;
 
     void Start()
     {
         this.enemyController = GetComponent<EnemyController>();
         animator = GetComponent<Animator>();
         animator.SetBool("Jump", true); // I don't think this works
+        if (enemyType == 0)
+        {
+            Transform model = transform.GetChild(0).transform;
+            Transform blade = model.GetChild(0);
+            Transform blade1 = model.GetChild(0);
+            blade1.gameObject.GetComponent<BladeController>().SetValues(baseObj, player, this);
+        }
+        generalManager = baseObj.transform.GetChild(0).gameObject.GetComponent<GeneralManager>();
+
     }
 
     public void SetValues(GameObject player, GameObject baseObj, GameObject fireball)
@@ -161,11 +168,11 @@ public class BoximonEnemyController : MonoBehaviour
 
     public void DamageBase()
     {
-        // Eli, this is for you to fill in!!!!                                                                      <~~~~ Eli
+        generalManager.DamageBase();                                                       
     }
 
     public void DamagePlayer()
     {
-        // Eli, this is for you to fill in!!!!                                                                      <~~~~ Eli
+        generalManager.DamagePlayer();                                                               
     }
 }

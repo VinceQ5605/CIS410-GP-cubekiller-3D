@@ -12,6 +12,7 @@ TagManager:
   - effect
   - Fire
   - Coin
+  - FireBall
   layers:
   - Default
   - TransparentFX

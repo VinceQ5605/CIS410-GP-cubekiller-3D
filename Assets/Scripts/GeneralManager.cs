@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class GeneralManager : MonoBehaviour
 {
     public TextMeshProUGUI base_Health;
+    public TextMeshProUGUI player_Health;
     public GameObject winTextObject;
     public GameObject lostTextObject;
     public TextMeshProUGUI coinCounter;
@@ -16,15 +17,20 @@ public class GeneralManager : MonoBehaviour
     public TextMeshProUGUI enemy_Counter;
 
 
+
+
     private int count;
     private int baseHealth;
     private int enemyLeft;
     private int coin;
+    private int playerHealth;
     // Start is called before the first frame update
     void Start()
     {
-        baseHealth = 10;
+        baseHealth = 100;
+        playerHealth = 25;
         SetBaseHealth();
+        SetPlayerHealth();
         winTextObject.SetActive(false);
         lostTextObject.SetActive(false);
         coin = 0;
@@ -47,10 +53,10 @@ public class GeneralManager : MonoBehaviour
         {
             lostTextObject.SetActive(true);
         }
-        if (enemyLeft == 0)
-        {
-            winTextObject.SetActive(true);
-        }
+        //if (enemyLeft == 0)
+        //{
+        //    winTextObject.SetActive(true);
+        //}
     }
 
     void SetCoinCounter()
@@ -58,31 +64,63 @@ public class GeneralManager : MonoBehaviour
         coinCounter.text = coin.ToString();
     }
 
-    private void OnTriggerEnter(Collider other)
+    void SetPlayerHealth()
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            if (baseHealth > 0)
-            {
-                baseHealth--;
-
-                SetBaseHealth();
-            }
-            else
-            {
-                Application.Quit();
-            }
-            other.gameObject.SetActive(false);
-        }
-
-        if (other.gameObject.CompareTag("Coin"))
-        {
-            coin++;
-            SetCoinCounter();
-            other.gameObject.SetActive(false);
-        }
-
+        player_Health.text = "HP: " + playerHealth.ToString();
     }
+
+    public void DamageBase()
+    {
+        baseHealth--;
+
+        SetBaseHealth();
+    }
+
+    public void DamagePlayer()
+    {
+        playerHealth--;
+
+        SetPlayerHealth();
+    }
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("FireBall"))
+    //    {
+    //        if (baseHealth > 0)
+    //        {
+    //            baseHealth--;
+
+    //            SetBaseHealth();
+    //        }
+    //        else
+    //        {
+    //            Application.Quit();
+    //        }
+    //        //other.gameObject.SetActive(false);
+    //    }
+
+    //    if (other.gameObject.CompareTag("Coin"))
+    //    {
+    //        coin++;
+    //        SetCoinCounter();
+    //        other.gameObject.SetActive(false);
+    //    }
+
+    //    if (other.gameObject.CompareTag("FireBall"))
+    //    {
+    //        if (playerHealth > 0)
+    //        {
+    //            playerHealth--;
+    //            SetPlayerHealth();
+    //        }
+    //        else
+    //        {
+    //            Application.Quit();
+    //        }
+    //    }
+
+    //}
 
     void SetEnemyCount()
     {
