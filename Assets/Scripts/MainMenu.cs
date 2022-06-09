@@ -7,7 +7,7 @@ public class MainMenu : MonoBehaviour
 {
     public void PlayMountainW()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene("MainScene");
         if (PauseMenu.GameIsPaused)
         {
             Time.timeScale = 1f;
@@ -17,7 +17,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayDesertW()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene("DesertWorld");
         if (PauseMenu.GameIsPaused)
         {
             Time.timeScale = 1f;
@@ -27,7 +27,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlaySnowW()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        SceneManager.LoadScene("SnowWorld");
         if (PauseMenu.GameIsPaused)
         {
             Time.timeScale = 1f;

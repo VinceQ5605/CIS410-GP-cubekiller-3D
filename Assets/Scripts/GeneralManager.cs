@@ -9,35 +9,32 @@ using UnityEngine.SceneManagement;
 public class GeneralManager : MonoBehaviour
 {
     public TextMeshProUGUI base_Health;
-    public TextMeshProUGUI player_Health;
     public GameObject winTextObject;
     public GameObject lostTextObject;
     public TextMeshProUGUI coinCounter;
+
     public TextMeshProUGUI enemy_Counter;
+
 
     private int count;
     private int baseHealth;
     private int enemyLeft;
     private int coin;
-    private int playerHealth;
-    private int totalEnemyCount;
-    private int remainingEnemyCount;
-
+    // Start is called before the first frame update
     void Start()
     {
-        baseHealth = 100;
-        playerHealth = 25;
-        SetBaseHealth ();
-        SetPlayerHealth ();
+        baseHealth = 10;
+        SetBaseHealth();
         winTextObject.SetActive(false);
         lostTextObject.SetActive(false);
         coin = 0;
-        SetCoinCounter ();
+        SetCoinCounter();
 
-        //enemyLeft = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        enemyLeft = GameObject.FindGameObjectsWithTag("Enemy").Length;
         SetEnemyCount();
     }
 
+    // Update is called once per frame
     void Update()
     {
         
@@ -50,10 +47,10 @@ public class GeneralManager : MonoBehaviour
         {
             lostTextObject.SetActive(true);
         }
-        //if (enemyLeft == 0)
-        //{
-        //    winTextObject.SetActive(true);
-        //}
+        if (enemyLeft == 0)
+        {
+            winTextObject.SetActive(true);
+        }
     }
 
     void SetCoinCounter()
@@ -61,44 +58,22 @@ public class GeneralManager : MonoBehaviour
         coinCounter.text = coin.ToString();
     }
 
-    void SetPlayerHealth()
-    {
-        player_Health.text = "HP: " + playerHealth.ToString();
-    }
-
-    public void DamageBase()
-    {
-        if (baseHealth > 0)
-        {
-            baseHealth--;
-
-            SetBaseHealth();
-        }
-        else
-        {
-            Application.Quit();
-        }
-        
-    }
-
-    public void DamagePlayer()
-    {
-        if (playerHealth > 0)
-        {
-            playerHealth--;
-
-            SetPlayerHealth();
-        }
-        else
-        {
-            Application.Quit();
-        }
-        
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            if (baseHealth > 0)
+            {
+                baseHealth--;
+
+                SetBaseHealth();
+            }
+            else
+            {
+                Application.Quit();
+            }
+            other.gameObject.SetActive(false);
+        }
 
         if (other.gameObject.CompareTag("Coin"))
         {
@@ -107,25 +82,10 @@ public class GeneralManager : MonoBehaviour
             other.gameObject.SetActive(false);
         }
 
-
-    }
-
-    public void SetTotalEnemyCount(int totalEnemyCount)
-    {
-        this.totalEnemyCount = totalEnemyCount;
-        remainingEnemyCount = totalEnemyCount;
-        SetEnemyCount();
-}
-
-    public void EnemyDeath()
-    {
-        this.remainingEnemyCount--;
-        SetEnemyCount();
     }
 
     void SetEnemyCount()
     {
-        // enemy_Counter.text = "Enemies: " + enemyLeft.ToString();
-        enemy_Counter.text = "Enemies: " + remainingEnemyCount.ToString();
+        enemy_Counter.text = "Enemies: " + enemyLeft.ToString();
     }
 }

@@ -8,43 +8,18 @@ public class BoximonEnemyController : MonoBehaviour
     public float fireCoolDown;
     public float range; // how close a target needs to be to trigger an attack (square of the horizontal distance)
     public GameObject player;
-    [Range(0, 1)]
+    [Range(1, 2)]
     public int enemyType;
-    public GameObject fireball; // for type 2 enemies
-    public float fireballSpeed = 30f;
 
     private EnemyController enemyController;
     private Animator animator;
     private float fireCDRemaining;
 
-    private GeneralManager generalManager;
-
     void Start()
     {
-        this.enemyController = GetComponent<EnemyController>();
-        animator = GetComponent<Animator>();
-        animator.SetBool("Jump", true); // I don't think this works
-        if (enemyType == 0)
-        {
-            Transform model = transform.GetChild(0).transform;
-            Transform blade = model.GetChild(0);
-            Transform blade1 = model.GetChild(0);
-            blade1.gameObject.GetComponent<BladeController>().SetValues(baseObj, player, this);
-        }
-        generalManager = baseObj.transform.GetChild(0).gameObject.GetComponent<GeneralManager>();
-
-    }
-
-    public void SetValues(GameObject player, GameObject baseObj, GameObject fireball)
-    {
-        this.player = player;
-        this.baseObj = baseObj;
-        this.fireball = fireball;
         enemyController = GetComponent<EnemyController>();
-
-        enemyController.SetDestination(baseObj);
-
-        // align model with grid as close to the direction of travel as possible
+        animator = GetComponent<Animator>();
+        animator.SetBool("Jump", true);
         Vector3 direction = baseObj.transform.position - transform.position;
         //direction = new Vector3(direction.x, 0f, direction.z);
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
@@ -70,6 +45,7 @@ public class BoximonEnemyController : MonoBehaviour
             }
         }
         transform.rotation = Quaternion.LookRotation(direction, Vector3.up);
+        //Debug.Log(direction.ToString());
     }
 
     private void Update()
@@ -78,10 +54,6 @@ public class BoximonEnemyController : MonoBehaviour
         if (enemyType == 0)
         {
             Enemy1Update();
-        }
-        else if (enemyType == 1)
-        {
-            Enemy2Update();
         }
     }
 
@@ -96,7 +68,7 @@ public class BoximonEnemyController : MonoBehaviour
         Vector3 baseDelta = baseObj.transform.position - transform.position;
         if (baseDelta.x * baseDelta.x + baseDelta.z * baseDelta.z < range)
         {
-            return baseDelta;
+            return playerDelta;
         }
 
         return Vector3.zero;
@@ -116,26 +88,9 @@ public class BoximonEnemyController : MonoBehaviour
         }
     }
 
-    private void Enemy2Update()
-    {
-        if (enemyController.atDestination)
-        {
-            enemyController.stopMoving = true;
-        }
-        else
-        {
-            enemyController.stopMoving = false;
-        }
-        Vector3 target = SomethingToFireAt();
-        if (fireCDRemaining < 0 && target != Vector3.zero)
-        {
-            fireCDRemaining = fireCoolDown;
-            Fire2(target);
-        }
-    }
-
     public void Fire1()
     {
+        Debug.Log("Firing");
         StartCoroutine(BladeSpin());
     }
 
@@ -153,25 +108,5 @@ public class BoximonEnemyController : MonoBehaviour
         }
         model.transform.rotation = initialRotation;
         blade.SetActive(false);
-    }
-
-    public void Fire2(Vector3 target)
-    {
-        target = target.normalized;
-        GameObject fBall = Instantiate(fireball, transform.position + target + .5f * Vector3.up, Quaternion.LookRotation(target));
-        FireballController fireballController = fBall.GetComponent<FireballController>();
-        fireballController.SetValues(baseObj, player, this);
-        fBall.GetComponent<Rigidbody>().velocity = fireballSpeed * (target + .3f * Vector3.up);
-        fBall.SetActive(true);
-    }
-
-    public void DamageBase()
-    {
-        generalManager.DamageBase();                                                       
-    }
-
-    public void DamagePlayer()
-    {
-        generalManager.DamagePlayer();                                                               
     }
 }
